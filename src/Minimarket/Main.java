@@ -57,7 +57,7 @@ public class Main {
         } while (cobaLagi.equalsIgnoreCase("y"));
     }
     public static void initMember() {
-        Member member1 = new Member("alex Doe");
+        Member member1 = new Member("alex1 Doe");
         Member member2 = new Member("Jane Smith");
         Member member3 = new Member("Alice jack ");
 
@@ -226,6 +226,7 @@ public class Main {
     public static void tambahBarang() {
         System.out.println("Anda Memilih Pilihan Tambah Barang");
         HashSet<String> cek = new HashSet<String>();
+
         for (Barang barang : kasir.listBarang) {
             cek.add(barang.getNamaBarang());
         }
@@ -239,20 +240,20 @@ public class Main {
             System.out.print("Masukkan Nama Barang: ");
             namaBarang = scan.nextLine();
         }
-        System.out.print("Masukkan Harga Barang: ");
-        while (!scan.hasNextInt()) {
-            System.out.println("\nInput Harga harus berupa angka!");
-            System.out.print("Masukkan Harga Barang: ");
-            scan.next();
-        }
-        int harga = scan.nextInt();
-        System.out.print("Masukkan Stock Barang: ");
-        while (!scan.hasNextInt()) {
-            System.out.println("\nInput Stock harus berupa angka!");
-            System.out.print("Masukkan Stock Barang: ");
-            scan.next();
-        }
-        int stock = scan.nextInt();
+//        System.out.print("Masukkan Harga Barang: ");
+//        while (!scan.hasNextInt()) {
+//            System.out.println("\nInput Harga harus berupa angka!");
+//            System.out.print("Masukkan Harga Barang: ");
+//            scan.next();
+//        }
+        int harga = getInputNumber("Masukan Harga Barang : ");
+//        System.out.print("Masukkan Stock Barang: ");
+//        while (!scan.hasNextInt()) {
+//            System.out.println("\nInput Stock harus berupa angka!");
+//            System.out.print("Masukkan Stock Barang: ");
+//            scan.next();
+//        }
+        int stock = getInputNumber("Masukkan Stock Barang: ");
 
         Barang tambah = new Barang(harga, namaBarang, stock);
         kasir.tambahBarang(tambah);
@@ -283,25 +284,34 @@ public class Main {
                     barang.setNamaBarang(namaBarang);
                 }
 
-                System.out.print("Masukkan Harga Barang Baru: ");
-                String hargaBarang = scan.nextLine();
-                if (!hargaBarang.isEmpty()) {
-                    try {
-                        int harga = Integer.parseInt(hargaBarang);
-                        barang.setHarga(harga);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Input Harga harus berupa angka!");
-                    }
+//                System.out.print("Masukkan Harga Barang Baru: ");
+//                String hargaBarang = scan.nextLine();
+//                if (!hargaBarang.isEmpty()) {
+//                    try {
+//                        int harga = Integer.parseInt(hargaBarang);
+//                        barang.setHarga(harga);
+//                    } catch (NumberFormatException e) {
+//                        System.out.println("Input Harga harus berupa angka!");
+//                    }
+//                }
+//                System.out.print("Masukkan Stock Barang Baru: ");
+//                String stockBarang = scan.nextLine();
+//                if (!stockBarang.isEmpty()) {
+//                    try {
+//                        int stock = Integer.parseInt(stockBarang);
+//                        barang.setStock(stock);
+//                    } catch (NumberFormatException e) {
+//                        System.out.println("Input Stock harus berupa angka!");
+//                    }
+//                }
+                int harga = getInputNumber("Masukkan Harga Barang Baru: ");
+                if (harga > 0) {
+                    barang.setHarga(harga);
                 }
-                System.out.print("Masukkan Stock Barang Baru: ");
-                String stockBarang = scan.nextLine();
-                if (!stockBarang.isEmpty()) {
-                    try {
-                        int stock = Integer.parseInt(stockBarang);
-                        barang.setStock(stock);
-                    } catch (NumberFormatException e) {
-                        System.out.println("Input Stock harus berupa angka!");
-                    }
+
+                int stock = getInputNumber("Masukkan Stock Barang Baru: ");
+                if (stock >= 0) {
+                    barang.setStock(stock);
                 }
 
                 System.out.println("Barang berhasil diupdate!");
@@ -381,5 +391,22 @@ public class Main {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }
+    }
+// method revisi cek inputan angka harus berupa angka
+    public static int getInputNumber(String message) {
+        int number = 0;
+        boolean isValidInput = false;
+
+        while (!isValidInput) {
+            System.out.print(message);
+            try {
+                number = Integer.parseInt(scan.nextLine());
+                isValidInput = true;
+            } catch (NumberFormatException e) {
+                System.out.println("Input harus berupa angka!");
+            }
+        }
+
+        return number;
     }
 }

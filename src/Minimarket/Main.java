@@ -392,7 +392,7 @@ public class Main {
             System.out.println(e.getMessage());
         }
     }
-// method revisi cek inputan angka harus berupa angka
+    // method revisi cek inputan angka harus berupa angka
     public static int getInputNumber(String message) {
         int number = 0;
         boolean isValidInput = false;
